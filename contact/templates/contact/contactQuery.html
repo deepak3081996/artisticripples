@@ -1,0 +1,73 @@
+{% extends "mainapp/base.html" %}
+
+{% block title %}
+Your Queries
+{% endblock %}
+
+{% block body %}
+
+<div class="container mx-5">
+	<div class="row">
+		<div class="alert alert-warning" role="alert">
+			We you have any query send it to us we will try our best to solve it.
+		</div>
+	</div>
+	<div class="row">
+		<form class="form-horizontal" method="post">{% csrf_token %}
+			<fieldset>
+				<legend>{{ title }}</legend>
+				{% for field in form %}
+					{% if field.errors %}
+						<div class="control-group error">
+							<label class="control-label">{{ field.label }}</label> 
+							<div class="controls">{{ field }}
+								{% if field.help_text %}
+									<p class="help-inline"><small>{{ field.help_text }}</small></p>
+								{% endif %}
+								<span class="">
+									<div class="alert alert-danger" role="alert">
+										  {% for error in  field.errors %}{{ error }}{% endfor %}
+										</div>
+								</span>
+							</div>
+						</div>
+					{% else %}
+						<div class="control-group">
+							<label class="control-label">{{ field.label }}</label> 
+							<div class="controls">{{ field }}
+								{% if field.help_text %}
+									<p class="help-inline"><small>{{ field.help_text }}</small></p>
+								{% endif %}
+							</div>
+						</div>
+					{% endif %}
+				{% endfor %}
+			</fieldset>
+			<div class="form-actions">
+				<button type="submit" class="btn btn-primary" >Submit</button>
+			</div>
+		</form>
+	</div>
+</div>
+
+  
+{% endblock %}
+
+{% block script %}
+<script>
+$( "#id_gender" ).removeClass( "list-group-item" ).addClass("list-group");
+var content = $( "#id_gender" ).html();
+
+$(document).ready(function(){
+
+	var str =  $("#id_gender").html().replaceAll("<li>","").replaceAll("</li>","");
+	//$("#id_gender").html(str);
+	$('#id_gender').replaceWith('<div id="id_gender" class="list-group">' + str +'</div>')
+    //$("#id_gender").html(function(){
+      //  return $(this).replaceAll("<li>","").replaceAll("</li>","");
+    //});
+	//$("#id_gender").replaceWith($('<div class="list-group">' + this.innerHTML + '</div>'));
+})
+	
+</script>
+{% endblock %}

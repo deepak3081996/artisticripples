@@ -1,0 +1,19 @@
+
+{% for treenode in rightSkewedTreeList %}
+	<div class="row mx-3 my-1">
+		<div class="toast" role="alert" aria-live="assertive" aria-atomic="true" data-bs-autohide="false">
+		  <div class="toast-header">
+			
+			<strong class="me-auto">{{ treenode.val.query_detail }}</strong>
+							<small>{{ treenode.val.updated_on }}</small>
+			<button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+		  </div>
+		  <div class="toast-body">
+			{{ treenode.val.reply }}
+		  </div>
+		</div>
+		 {% if treenode.right %}
+		 <br/>{% include "contact/updateMacro.html" with rightSkewedTreeList=treenode.right %}
+		{% endif %} 
+	</div>
+{% endfor%}

@@ -1,0 +1,16 @@
+{% extends "mainapp/base.html" %}
+
+{% block title %}
+Success Page
+{% endblock %}
+
+{% block headstyle %}
+{% endblock %}
+
+{% block body %}
+	{% for message in messages %}
+		<div class="alert alert-success" role="alert">
+		<p>{{message}}</p>
+		</div>
+	{% endfor %}
+{% endblock %}
