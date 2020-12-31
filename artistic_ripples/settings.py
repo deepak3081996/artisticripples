@@ -60,7 +60,12 @@ ROOT_URLCONF = 'artistic_ripples.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [
+            'artistic_ripples/templates',
+            'contact/templates',
+            'customer/templates',
+            'mainapp/templates',
+        ],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
