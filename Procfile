@@ -1,0 +1,1 @@
+web: gunicorn artistic_ripples.wsgi --log-file -
