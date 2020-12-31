@@ -61,10 +61,10 @@ TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
         'DIRS': [
-            'artistic_ripples/templates',
-            'contact/templates',
-            'customer/templates',
-            'mainapp/templates',
+            'app/artistic_ripples/templates',
+            'app/contact/templates',
+            'app/customer/templates',
+            'app/mainapp/templates',
         ],
         'APP_DIRS': True,
         'OPTIONS': {
