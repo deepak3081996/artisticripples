@@ -1,0 +1,50 @@
+{% extends "mainapp/base.html" %}
+
+{% block title %}
+Sign Up
+{% endblock %}
+
+{% block headstyle %}
+ <style>
+	.toast  {
+			width: 80%;
+			height: 60%;
+			}
+ </style>
+{% endblock %}
+
+{% block body %}
+	
+	<div role="alert" aria-live="assertive" aria-atomic="true" class="toast" data-bs-autohide="false">
+	  <div class="toast-header">
+		<img src="/media/{{product.image}}" style="width: 10%; height: 10%;" class="rounded me-2" alt="">
+		<strong class="me-auto"> {{ product.product_name }}</strong>
+		<small>{{ request.user.username }}</small>
+		<button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+	  </div>
+	  <div class="toast-body">
+		
+		<form class="form-horizontal" method="post">{% csrf_token %}
+			{{form.as_p}}
+			<div class="form-actions">
+				<center><button type="submit" class="btn btn-primary my-3" >Submit</button></center>
+			</div>							
+		</form>
+		
+		
+	  </div>
+	</div>
+
+{% endblock %}
+
+{% block script %}
+<script>
+var toastElList = [].slice.call(document.querySelectorAll('.toast'))
+        var toastList = toastElList.map(function(toastEl) {
+        // Creates an array of toasts (it only initializes them)
+          return new bootstrap.Toast(toastEl) // No need for options; use the default options
+        });
+       toastList.forEach(toast => toast.show()); // This show them
+
+</script>
+{% endblock %}

@@ -1,0 +1,156 @@
+{% extends "mainapp/base.html" %}
+
+{% block title %}
+Sign Up
+{% endblock %}
+
+{% block headstyle %}
+ <style>
+	.list-group-item {
+		/* border-top-left-radius: inherit; */
+		/* border-top-right-radius: inherit; */
+		border-block: none;
+	}
+ </style>
+{% endblock %}
+
+{% block body %}
+
+
+<div class="container-fluid text-center">
+	<div class="row">
+		<div class="alert alert-warning" role="alert">
+			Pleae Enter your the Tracking Id to get the updates on your query.
+		</div>
+	</div>
+	<div class="row d-md-flex flex-md-equal w-100 my-md-3 ps-md-3">
+		<div class="form-signin">
+			<form class="form-horizontal" method="post">{% csrf_token %}
+				<div class="container-fluid shadow  bg-light me-md-3 pt-3 px-2 pt-md-5 px-md-5 text-center text-dark overflow-hidden" style="border-radius: 30%;">
+					
+					{% for field in form %}
+						{% if field.errors %}
+							<div class=	"row ">
+								
+								<div class="row">
+									<div class="col xs-4 sm-4 md-4 lg-4 xl-4 xxl-4 text-end">
+										<label class="control-label">{{ field.label }}</label> 
+									</div>
+									<div class="col xs-4 sm-4 md-4 lg-4 xl-4 xxl-4 text-start">
+										{{ field }}
+									</div>
+									<div class="col xs-4 sm-4 md-4 lg-4 xl-4 xxl-4 text-start">
+										<div class="alert alert-danger" role="alert">
+										  {% for error in  field.errors %}{{ error }}{% endfor %}
+										</div>
+									</div>
+								</div>
+								<div class="row">
+									<div class="col xs-8 sm-8 md-8 lg-8 xl-8 xxl-8 text-start">
+										{% if field.help_text %}
+											<p class="help-inline"><small>{{ field.help_text }}</small></p>
+										{% endif %}
+									</div>
+								</div>	
+									
+							</div>
+						{% else %}
+							<div class=" row ">
+								
+								<div class="row">
+									<div class="col xs-4 sm-4 md-4 lg-4 xl-4 xxl-4 text-end">
+										<label class="control-label">{{ field.label }}</label> 
+									</div>
+									<div class="col xs-4 sm-4 md-4 lg-4 xl-4 xxl-4 text-start">
+										{{ field }}
+									</div>
+									<div class="col xs-4 sm-4 md-4 lg-4 xl-4 xxl-4 text-start">
+										&nbsp;
+									</div>
+								</div>
+								<div class="row">
+									<div class="col xs-8 sm-8 md-8 lg-8 xl-8 xxl-8 text-start">
+										{% if field.help_text %}
+											<p class="help-inline"><small>{{ field.help_text }}</small></p>
+										{% endif %}
+									</div>
+								</div>
+								
+							</div>
+						{% endif %}
+					{% endfor %}
+					
+					<div class="form-actions">
+						<button type="submit" class="btn btn-primary my-3" >Get Updates</button>
+					</div>
+				</div>
+			</form>
+		</div>
+	</div>
+	<div class="row">
+		<div class="container mx-5">
+			
+					{% if resultantQuotation.hasQuotation %}
+						{% for quotation in resultantQuotation.quotations %}
+							<div class="row mx-3 my-1">
+								<div class="toast" role="alert" aria-live="assertive" aria-atomic="true" data-bs-autohide="false">
+								  <div class="toast-header">
+									
+									<strong class="me-auto">
+										{{ quotation.product.product_name }}
+									</strong>
+									<small>
+										{{ quotation.email }}
+									</small>
+									<button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+								  </div>
+								  <div class="toast-body">
+									{% if quotation.author_comment %}
+										{{quotation.author_comment}}
+									{% else %}
+										Sorry, we haven't updated your quotation yet. Please give us sometime we will get updates within 48 working hours.							
+									{% endif %}
+								  </div>
+								</div>						 
+							</div>
+						{% endfor %}
+					{% else %}
+						<div class="row mx-3 my-1">
+								<div class="toast" role="alert" aria-live="assertive" aria-atomic="true" data-bs-autohide="false">
+								  <div class="toast-header">
+									
+									<strong class="me-auto">
+										Invalid Data
+									</strong>
+									<small>
+										
+									</small>
+									<button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+								  </div>
+								  <div class="toast-body">									
+										{{resultantQuotation.message}}									
+								  </div>
+								</div>						 
+							</div>
+					{% endif %}
+			
+				
+		</div>
+	</div>
+</div>
+
+  
+
+{% endblock %}
+
+{% block script %}
+<script>
+var toastElList = [].slice.call(document.querySelectorAll('.toast'))
+        var toastList = toastElList.map(function(toastEl) {
+        // Creates an array of toasts (it only initializes them)
+          return new bootstrap.Toast(toastEl) // No need for options; use the default options
+        });
+       toastList.forEach(toast => toast.show()); // This show them
+
+</script>
+{% endblock %}

@@ -1,0 +1,187 @@
+{% extends "mainapp/base.html" %}
+
+{% block title %}
+{{product.product_name}}
+{% endblock %}
+
+
+{% block headstyle %}
+ <style>
+	.bd-placeholder-img {
+        font-size: 1.125rem;
+        text-anchor: middle;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        user-select: none;
+      }
+
+      @media (min-width: 768px) {
+        .bd-placeholder-img-lg {
+          font-size: 3.5rem;
+        }
+      }
+	  
+	 body .carousel-control-prev-icon,
+	 body .carousel-control-next-icon{
+		background-color: grey;
+		margin-left: -4rem;
+	}
+	.ScrollableContainer {
+	width: 90%;
+   max-width: 90%;
+   overflow-x: None;
+    overflow-y: auto;
+}
+	  
+ 	<!--Typed.js-->
+     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/typed.js"></script>
+</style>
+{% endblock %}
+
+	{% block additionalDivOpen %}
+		<div class="cover-container d-flex w-100 h-100 p-0 mx-auto my-0 flex-column">
+	{% endblock%}
+  
+{% block body %}
+{% load static %}
+<main class="px-3">
+    <nav id="navbar-example2" class="navbar navbar-light bg-light px-3 fixed">
+  <a class="navbar-brand" href="#">{{product.product_name}}</a>
+  <ul class="nav nav-pills">
+    <li class="nav-item">
+      <a class="nav-link" href="#images">@Images</a>
+    </li>
+   
+    <li class="nav-item dropdown">
+      <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">Dropdown</a>
+      <ul class="dropdown-menu dropdown-menu-end">
+        <li><a class="dropdown-item" href="#price">Price</a></li>
+        <li><a class="dropdown-item" href="#customerReviews">Customer Reviews</a></li>
+        <li><hr class="dropdown-divider"></li>
+        <li><a class="dropdown-item" href="#terms">Terms</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+<div data-bs-spy="scroll" data-bs-target="#navbar-example2" data-bs-offset="0" tabindex="0">
+  <h4 id="images">Images</h4>
+  <p>
+	<div class="container-fluid" >
+					  <div class="row ">
+						<div class="col text-start">
+							{% if has_product_images %}
+								<div class="row">
+									<div id="cpr{{product.product_id}}" class="carousel slide" data-bs-ride="carousel">
+										<ol class="carousel-indicators">
+										{% for img in productImages.all %}											
+											<li data-bs-target="#cpr{{product.product_id}}" data-bs-slide-to="{{ forloop.counter0 }}" {% if forloop.first %} class="active"{% endif %}></li>
+										{% endfor %}
+										</ol>
+																
+											  <div class="carousel-inner">
+											  {% for img in productImages.all %}
+												<div class="carousel-item {% if forloop.first %} active{% endif %}">
+												  <img class="Image" style="width: 80%; height: auto;" src="/media/{{img.img_file}}"></img>
+												</div>
+												{% endfor %}
+											  </div>
+											  <a class="carousel-control-prev" href="#cpr{{product.product_id}}" role="button" data-bs-slide="prev">
+												<span class="carousel-control-prev-icon" aria-hidden="true"></span>
+												<span class="visually-hidden">Previous</span>
+											  </a>
+											  <a class="carousel-control-next" href="#cpr{{product.product_id}}" role="button" data-bs-slide="next">
+												<span class="carousel-control-next-icon" aria-hidden="true"></span>
+												<span class="visually-hidden">Next</span>
+											  </a>							
+									</div>
+								</div>
+							{% else %}
+							<div class="row">
+								<img class="Image" style="width: 80%; height: auto;" src="/media/{{product.image}}"></img>
+							</div>
+							{% endif %}
+							
+							
+						</div>
+						
+						<div class="col text-center mx-10">
+							<br/>
+							<img class="Image" style="width: 50%; height: auto;" src="/media/{{product.image}}"></img>
+							<br/>
+							<h3 class="card-title my-10">{{ product.product_name }}</h3>
+							<br/>
+							<h4>{{ product.category }}</h4>
+							<br/>
+							<h5>{{ product.subcategory }}</h5>
+							<br/>
+							<div class="btn-group">
+							  <a href="#" class="btn btn-success  disabled"  aria-current="page">Add to Wishlist</a>
+							  <a href="/registerQuotation/{{product.product_id}}" class="btn btn-success" data-toggle="tooltip" title="We will get your details and contact you for your prefered customization on your order">Get Qutation for this product</a>
+							</div>
+							<br/>
+							<br/>
+							<br/>
+							<div class="toast" role="alert" aria-live="assertive" data-bs-autohide="false" aria-atomic="true">
+							  <div class="toast-body">
+								Actual Cost of the product as of date.
+								<div class="mt-2 pt-2 border-top" >
+									<div class="row">
+										<div class="col text-start">
+											<p><b id="price">Price</b> {{ product.price }}</p>
+										</div>
+										<div class="col text-end">
+											<p>{{ product.pub_date }}</p>
+										</div>
+									</div>
+								</div>
+							  </div>
+							</div>
+					
+						</div>
+					  </div>
+					</div>	
+  </p>
+  <h4 id="description">Product Description</h4>
+  
+  <p>{{product.pub_date}}</p>
+  <p>{{product.desc}}</p>
+  <h4 id="customerReviews">Customer Reviews</h4>
+  
+  <div class="ScrollableContainer">
+	<h4 class="container csutomerReviewContianer  mx-2" id="pill{{product.product_id}}">Reviews</h4>
+					  
+						{% include "mainapp/CustomerReviewsMacro.html" with product=productContextForCustomerReviewMacro.pcfcrm %}
+  </div>
+  <h4 id="terms">Terms</h4>
+	<div class="alert alert-success" role="alert">
+		<p>Shipping charges are exclusive of the product and shall depend on lcoation and weight of the product.</p>
+	</div>
+</div>
+  </main>
+
+{% endblock %}
+
+	{% block additionalDivClose %}
+		</div>
+	{% endblock%}
+
+{% block script %}
+<script>
+var toastElList = [].slice.call(document.querySelectorAll('.toast'))
+        var toastList = toastElList.map(function(toastEl) {
+        // Creates an array of toasts (it only initializes them)
+          return new bootstrap.Toast(toastEl) // No need for options; use the default options
+        });
+       toastList.forEach(toast => toast.show()); // This show them
+
+	   
+	   //Adding cart funcitonality to individual product page
+		if (localStorage.getItem('cart') == null){
+		  var cart = {};
+		} else {
+		  cart = JSON.parse(localStorage.getItem('cart'));
+		  document.getElementById('cart').innerHTML = Object.keys(cart).length;
+		  updateCart(cart);
+		}
+</script>
+{% endblock %}

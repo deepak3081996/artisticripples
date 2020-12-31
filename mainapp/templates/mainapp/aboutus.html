@@ -1,0 +1,125 @@
+{% extends "mainapp/base.html" %}
+
+{% block title %}
+About - Artistic Riples
+{% endblock %}
+
+{% block headstyle %}
+
+<style>
+      .bd-placeholder-img {
+        font-size: 1.125rem;
+        text-anchor: middle;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        user-select: none;
+      }
+
+      @media (min-width: 768px) {
+        .bd-placeholder-img-lg {
+          font-size: 3.5rem;
+		  height: 300px;
+        }
+      }
+	  .carousel-item {
+  height: 300px;
+}
+    </style>
+{% endblock %}
+
+{% block body %}
+{% load static %}
+<main>
+
+  <div id="myCarousel" class="carousel slide" data-bs-ride="carousel">
+    <ol class="carousel-indicators">
+      <li data-bs-target="#myCarousel" data-bs-slide-to="0" class="active"></li>
+      <li data-bs-target="#myCarousel" data-bs-slide-to="1"></li>
+      <li data-bs-target="#myCarousel" data-bs-slide-to="2"></li>
+    </ol>
+    <div class="carousel-inner">
+      <div class="carousel-item active">
+        <svg class="bd-placeholder-img" width="100%" height="300%" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" preserveAspectRatio="xMidYMid slice" focusable="false"><rect width="100%" height="300%" fill="#777"/></svg>
+
+        <div class="container">
+          <div class="carousel-caption text-start">
+            <h1>Connect with us</h1>
+            <p>Contact us today and get yourself a unique Id on a successful order completion so you can rate us.</p>
+            <p><a class="btn btn-lg btn-primary {% if user.is_authenticated %}disabled{% endif %}" href="/customer/register" role="button" >Sign up today</a></p>
+          </div>
+        </div>
+      </div>
+      <div class="carousel-item">
+        <svg class="bd-placeholder-img" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" preserveAspectRatio="xMidYMid slice" focusable="false"><rect width="100%" height="100%" fill="#777"/></svg>
+
+        <div class="container">
+          <div class="carousel-caption">
+            <h1>What we can offer?</h1>
+            <p>To know how we can serve and help you to bring a smile on your and your someone special face. click on the button below.</p>
+            <p><a class="btn btn-lg btn-primary" href="#learnMore" role="button">Learn more</a></p>
+          </div>
+        </div>
+      </div>
+      <div class="carousel-item">
+        <svg class="bd-placeholder-img" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" preserveAspectRatio="xMidYMid slice" focusable="false"><rect width="100%" height="100%" fill="#777"/></svg>
+
+        <div class="container">
+          <div class="carousel-caption text-end">
+            <h1>WANNA KNOW MORE!</h1>
+            <p>Check out our amazing Gallery.</p>
+            <p><a class="btn btn-lg btn-primary" href="/gallery" role="button">Browse gallery</a></p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <a class="carousel-control-prev" href="#myCarousel" role="button" data-bs-slide="prev">
+      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Previous</span>
+    </a>
+    <a class="carousel-control-next" href="#myCarousel" role="button" data-bs-slide="next">
+      <span class="carousel-control-next-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Next</span>
+    </a>
+  </div>
+
+
+  <!-- Marketing messaging and featurettes
+  ================================================== -->
+  <!-- Wrap the rest of the page in another container to center all the content. -->
+
+  <div class="container marketing my-4">
+
+    <!-- Three columns of text below the carousel -->
+    <div class="row">
+      <div class="col-lg-4">
+        
+		<div class="bg-light shadow-sm mx-auto" style="width: 250px; height: 250px; border-radius: 50%;"><img style="width: 250px; height: 250px; border-radius: 50%;" src="/media/shop/images/pp.jpg"></img></div><br/>
+        <h2>Simran Puri</h2>
+        <p>I started with aritsitc riples as an hobby and with the time i didn't realise that how it became a brand now. I'm really determined to serve you and I think when i can bring a smile on someone's face then that is the worth of my work.</p>
+        <p><a class="btn btn-secondary" href="#" role="button">View details &raquo;</a></p>
+      </div><!-- /.col-lg-4 -->
+      
+    </div><!-- /.row -->
+
+
+    <!-- START THE FEATURETTES -->
+
+    <hr class="featurette-divider">
+
+    <div class="row featurette" id="learnMore">
+      <div class="col-md-7">
+        <h2 class="featurette-heading">Hand Made Gift Items <span class="text-muted">It'll blow your mind.</span></h2>
+        <p class="lead">we can offer you a unique range of handmade items like photo albums, gift box and cards please checkout our product section to more about our offerings. thank you</p>
+      </div>
+      
+    </div>
+
+    
+
+    <!-- /END THE FEATURETTES -->
+
+  </div><!-- /.container -->
+
+
+</main>
+{% endblock %}

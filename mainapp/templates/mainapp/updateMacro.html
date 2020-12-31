@@ -1,0 +1,29 @@
+
+{% for treenode in rightSkewedTreeList %}
+	
+	<div class="row mx-3 my-1">
+		<div class="toast" role="alert" aria-live="assertive" aria-atomic="true" data-bs-autohide="false">
+		  <div class="toast-header">
+			
+			<strong class="me-auto">{{ treenode.val.user.username }}</strong>
+							<small>{{ treenode.val.updated_on }}</small>
+			<button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+		  </div>
+		  <div class="toast-body">
+			{{ treenode.val.review_content }}
+		  </div>
+		</div>
+		
+			<div class="text-start mx-2">
+				<small>
+				<a class="btn btn-success" style="margin-right: 10%;" href="/customer/reply/add/{{treenode.val.review_id}}" >Reply </a>
+				</small>
+			</div>
+			
+		 {% if treenode.right %}
+		 <br/>{% include "mainapp/updateMacro.html" with rightSkewedTreeList=treenode.right %}
+		 
+		{% endif %} 
+			
+	</div>
+{% endfor%}

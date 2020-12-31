@@ -1,0 +1,47 @@
+{% extends "mainapp/base.html" %}
+
+{% block title %}
+Log In
+{% endblock %}
+
+{% block headstyle %}
+ <style>
+	
+ </style>
+{% endblock %}
+
+{% block body %}
+{% load static %}
+	
+	{% if data.has_other_pages %}
+		{% include "mainapp/paginationMacro.html" with page_obj=data %}
+	{% endif %}
+	
+ <div class="row" data-masonry='{"percentPosition": true }'>
+	
+	{% for id, image in data %}
+
+    <div class="col-sm-6 col-lg-4 mb-4" onclick="window.location.href = '/productDetail/{{id}}';">
+      <div class="card">
+
+        <div class="card-body">
+          <h5 class="card-title"></h5>
+          <p class="card-text">
+			<img class="Image" style="width: 80%; height: 80%;" src="{{image}}"></img>
+		  </p>
+        </div>
+      </div>
+    </div>
+
+	{% endfor %}
+
+</div>
+		
+	{% if data.has_other_pages %}
+		{% include "mainapp/paginationMacro.html" with page_obj=data %}
+	{% endif %}
+
+{% endblock %}
+{% block script %}
+<script async src="https://cdn.jsdelivr.net/npm/masonry-layout@4.2.2/dist/masonry.pkgd.min.js" integrity="sha384-GNFwBvfVxBkLMJpYMOABq3c+d3KnQxudP/mGPkzpZSTYykLBNsZEnG2D9G/X/+7D" crossorigin="anonymous"></script>
+{% endblock %}

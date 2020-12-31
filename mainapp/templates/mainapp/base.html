@@ -1,0 +1,235 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
+
+    <title>{% block title %}
+	{% endblock %}</title>	
+	
+	{% block headstyle %}
+	{% endblock %}
+	<style>
+		#divfix {
+			   bottom: 50px;
+			   right: 10px;
+			   position: fixed;
+			   opacity: 0.7;
+		}
+		.divflashmessages {
+			bottom:50px;
+			left:10px;
+			   position: absolute;
+			   opacity: 0.7;
+		}
+		
+	</style>
+  </head>
+  <body>
+  <div id="fb-root"></div>
+<script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v9.0" nonce="kc5l3W0k"></script>
+
+<div class="alert alert-primary" id="divfix" role="alert">
+  We are still under construction...<br/> Any idea, suggestion will be highly appreciated <br/> Please! give us your <a href="/contact/feedback">feedback!</a> 
+</div>
+
+
+	
+
+  {% block additionalDivOpen %}
+  {% endblock %}
+	<header class="site-header sticky-top py-1">
+  <!-- <nav class="navbar navbar-expand-lg navbar-light justify-content-between bg-dark">
+    <a class="py-2" href="#" aria-label="Product">
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="d-block mx-auto" role="img" viewBox="0 0 24 24"><title>Product</title><circle cx="12" cy="12" r="10"/><path d="M14.31 8l5.74 9.94M9.69 8h11.48M7.38 12l5.74-9.94M9.69 16L3.95 6.06M14.31 16H2.83m13.79-4l-5.74 9.94"/></svg>
+    </a>
+    <a class="py-2 d-none d-md-inline-block nav-link active" href="#">Tour</a>
+    <a class="py-2 d-none d-md-inline-block nav-link active" href="#">Product</a>
+    <a class="py-2 d-none d-md-inline-block nav-link active" href="#">Features</a>
+    <a class="py-2 d-none d-md-inline-block nav-link active" href="#">Enterprise</a>
+    <a class="py-2 d-none d-md-inline-block nav-link active" href="#">Support</a>
+    <a class="py-2 d-none d-md-inline-block nav-link active" href="#">Pricing</a>
+    <a class="py-2 d-none d-md-inline-block nav-link active" href="#">Cart</a>
+  </nav> -->
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark" style="margin-top:-4px">
+  <div class="container-fluid">
+   <a class="py-2" href="/productview" aria-label="Product">
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" stroke="white" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="d-block mx-auto" role="img" viewBox="0 0 24 24"><title>Product</title><circle cx="12" cy="12" r="10"/><path d="M14.31 8l5.74 9.94M9.69 8h11.48M7.38 12l5.74-9.94M9.69 16L3.95 6.06M14.31 16H2.83m13.79-4l-5.74 9.94"/></svg>
+    </a>&nbsp;&nbsp;
+    <a class="navbar-brand" href="/">Artistic Riples</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" href="/">Home</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/about">About Us</a>
+        </li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            Dropdown
+          </a>
+          <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <li><a class="dropdown-item" href="/contact/query">Your Queries?</a></li>
+			<li><a class="dropdown-item" href="/gallery">Gallery</a></li>
+			<li><a class="dropdown-item" href="/contact/tracker">Query Tracker</a></li>
+			<li><a class="dropdown-item" href="/quotationtracking">Quotation Tracker</a></li>
+            {% if not user.is_authenticated %}<li><a class="dropdown-item" href="/customer/login">Log In</a></li>{% endif %}
+            <li><hr class="dropdown-divider"></li>
+            <li><a class="dropdown-item" href="/contact/feedback">Feedback</a></li>
+          </ul>
+        </li>
+        <li class="nav-item">
+			{% if user.is_authenticated %}
+				<a class="nav-link " href="/customer/logout" tabindex="-1" aria-disabled="false">Log Out</a>
+			{% else %}
+				<a class="nav-link " href="/customer/register" tabindex="-1" aria-disabled="false">Sign Up</a>
+			{% endif %}
+        </li>
+		<li>
+		 <li class="nav-item">
+			{% if user.is_authenticated %}
+				<a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Welcome, {{request.user.first_name}} {{request.user.last_name}}</a>
+			{% else %}
+				<a class="nav-link " href="/customer/login" tabindex="-1" aria-disabled="false">Log In</a>
+			{% endif %}
+        </li>		
+      </ul>
+     <!--  <form class="d-flex">
+        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+        <button class="btn btn-outline-success" type="submit">Search</button>
+      </form> -->
+		{% if user.is_authenticated %}
+			<a tabindex="0" type="button" role="button" class="btn btn-light mx-2" id="popOverUserProfile" data-bs-container="body" data-bs-toggle="popover"  data-bs-placement="bottom" data-bs-html=true data-bs-content="{{request.user.username}}">
+				<svg height="20" width="20">
+					<circle cx="10" cy="10" r="9" stroke="black" stroke-width="3" fill="white" />
+					<circle cx="10" cy="8" r="2" stroke="black" stroke-width="0" fill="black" />
+					<ellipse cx="10" cy="14" rx="5" ry="2.5" stroke-width="0" fill="black" />
+				  
+				</svg> 
+			</a>
+		{% endif %}
+    </div>
+  </div>
+</nav>
+</header>
+
+    {% block body %}
+	{% endblock %}
+
+<footer class="site-footer container py-5">
+  <div class="row">
+    <div class="col-12 col-md">
+   <a class="py-2" href="/productview" aria-label="Product">
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="d-block mb-2" role="img" viewBox="0 0 24 24"><title>Product</title><circle cx="12" cy="12" r="10"/><path d="M14.31 8l5.74 9.94M9.69 8h11.48M7.38 12l5.74-9.94M9.69 16L3.95 6.06M14.31 16H2.83m13.79-4l-5.74 9.94"/></svg>
+	  </a>
+      <small class="d-block mb-3 text-muted">&copy; 2020-2021 Artistic Riples</small>
+    </div>
+    <div class="col-6 col-md">
+      <h5>Features</h5>
+      <ul class="list-unstyled text-small">
+        <li>{% if user.is_authenticated %}
+				<a class="link-secondary " href="/customer/logout" tabindex="-1" aria-disabled="false">Log Out</a>
+			{% else %}
+				<a class="link-secondary " href="/customer/register" tabindex="-1" aria-disabled="false">Sign Up</a>
+			{% endif %}</li>
+        <li>{% if user.is_authenticated %}
+				<a class="link-secondary " href="/customer/change_password" class='btn btn-primary' id="Customerlogout">Change Password</a>
+			{% else %}
+				<a class="link-secondary " href="/customer/login" tabindex="-1" aria-disabled="false">Log In</a>
+			{% endif %}</li>
+        <li><a class="link-secondary" aria-current="page" href="/">Home</a></li>
+      </ul>
+    </div>
+    <div class="col-6 col-md">
+      <h5>Resources</h5>
+      <ul class="list-unstyled text-small">		
+		<li><a class="link-secondary" href="/contact/tracker">Query Tracker</a></li>
+		<li><a class="link-secondary" href="/quotationtracking">Quotation Tracker</a></li>  
+      </ul>
+    </div>
+    <div class="col-6 col-md">
+      <h5>Resources</h5>
+      <ul class="list-unstyled text-small">
+		<li><a class="link-secondary" href="/contact/query">Your Queries?</a></li>
+		<li><a class="link-secondary" href="/gallery">Gallery</a></li>          
+		<li><a class="link-secondary" href="/contact/feedback">Feedback</a></li>        
+      </ul>
+    </div>
+    <div class="col-6 col-md">
+      <h5>About</h5>
+      <ul class="list-unstyled text-small">
+        <li><a class="link-secondary" href="/about">About Us</a></li>
+      </ul>
+    </div>
+  </div>
+</footer>
+
+{% block additionalDivClose %}
+{% endblock%}
+    <!-- Optional JavaScript; choose one of the two! -->
+	
+    <!-- Option 1: Bootstrap Bundle with Popper -->
+	<script src="https://code.jquery.com/jquery-3.5.1.js" integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx" crossorigin="anonymous"></script>
+
+    <!-- Option 2: Separate Popper and Bootstrap JS -->
+   
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js" integrity="sha384-q2kxQ16AaE6UbzuKqyBE9/u/KzioAlnx2maXQHiDX9d4/zp8Ok3f+M7DPm+Ib6IU" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.min.js" integrity="sha384-pQQkAEnwaBkjpqZ8RU1fF1AKtTcHJwFl3pblpTlHXybJjHpMYo79HY3hIi4NKxyj" crossorigin="anonymous"></script>
+    
+	<script>
+	
+		setTimeout(function(){$('.divflashmessages').remove()},5000);
+		
+		var popoverBlock= document.getElementById('popOverUserProfile');
+		if (popoverBlock != null){
+			//var popover = new bootstrap.Popover(popoverBlock);
+		}
+		
+		var popOverUserProfileIsDisplaying = false;
+		$(document).ready(function(){
+			
+			popoverStr = `
+				<div class="card" style="width: 18rem;">
+				  <div class="card-body">
+					<h5 class="card-title">User Details</h5>
+					<h6 class="card-subtitle mb-2 text-muted">{{request.user.username}}</h6>
+					<p class="card-text">{{request.user}}</p>
+					<a href="/customer/change_password" class='btn btn-primary' id="Customerlogout">Change Password</a>
+					<a href="/customer/logout" class='btn btn-primary' id="Customerlogout">Log Out</a>
+				  </div>
+				</div>
+			`
+			
+			$('#popOverUserProfile').attr('data-bs-content', popoverStr);
+			//$('#popOverUserProfile').popover('show');
+			$('#Customerlogout').click(function(){
+      console.log('Customerlogout trigger');
+      
+			});
+		});
+		
+			  $("#popOverUserProfile").on('click', function(){
+			   if (!popOverUserProfileIsDisplaying){
+					$('#popOverUserProfile').popover('show');
+					popOverUserProfileIsDisplaying = true;
+					console.log(popOverUserProfileIsDisplaying);
+				} else {
+					$('#popOverUserProfile').popover('hide');
+					popOverUserProfileIsDisplaying = false;
+					console.log(popOverUserProfileIsDisplaying);
+				}
+			  });
+	</script>
+	{% block script %}
+	{% endblock %}
+  </body>
+</html>,
